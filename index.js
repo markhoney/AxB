@@ -10,6 +10,24 @@ function wordStubs(length) {
 	return result;
 }
 
+function wordStubObjects(length) {
+	var words = allwords.filter(w => w.length == length);
+	var result = {};
+	for (var word in words) {
+		var wordletter = result;
+		var wordarray = words[word].split("");
+		for (var letter in wordarray) {
+			if (!(wordarray[letter] in wordletter)) {
+				wordletter[wordarray[letter]] = {};
+			}
+			//!(wordarray[letter] in wordletter) && (wordletter[wordarray[letter]] = {});
+			wordletter = wordletter[wordarray[letter]];
+		}
+	}
+	return result;
+}
+
+
 function checkLengths(lengths) {
 	if (lengths.length == 0) {
 		lengths = [7, 3];
@@ -32,15 +50,6 @@ function wordLists(lengths) {
 	return wordlists;
 }
 
-const lengths = checkLengths([7, 3]);
-const wordlists = wordLists(lengths);
-
-var total = 0;
-const start = process.hrtime();	
-
-console.log(lengths[0] + " letter words: " + wordlists[0][lengths[0]].length);
-console.log(lengths[1] + " letter words: " + wordlists[1][lengths[1]].length);
-console.log("");
 
 var words = [];
 
@@ -80,5 +89,17 @@ const reCurseWords = function(depth = 1) {
 	}
 };
 
-reCurseWords();
-console.log("Time:", process.hrtime(start)[0] + 's');
+console.log(wordStubObjects(7));
+
+/*
+const lengths = checkLengths([5, 5]);
+const wordlists = wordLists(lengths);
+var total = 0;
+const start = process.hrtime();	
+
+console.log(lengths[0] + " letter words: " + wordlists[0][lengths[0]].length);
+console.log(lengths[1] + " letter words: " + wordlists[1][lengths[1]].length);
+console.log("");*/
+
+//reCurseWords();
+//console.log("Time:", process.hrtime(start)[0] + 's');
