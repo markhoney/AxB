@@ -1,0 +1,14 @@
+{
+  "name": "AxB",
+  "version": "1.0.0",
+  "description": "AxB valid word grid finder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Honeychurch",
+  "license": "ISC",
+  "dependencies": {
+    "an-array-of-english-words": "^1.3.1"
+  }
+}
