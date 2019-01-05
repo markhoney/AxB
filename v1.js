@@ -2,17 +2,11 @@ const allwords = require('an-array-of-english-words');
 
 function wordStubs(length) {
 	var words = allwords.filter(w => w.length == length);
-	var result = {};
-	for (var word in words) {
-		var wordletter = result;
-		var wordarray = words[word].split("");
-		for (var letter in wordarray) {
-			if (!(wordarray[letter] in wordletter)) {
-				wordletter[wordarray[letter]] = {};
-			}
-			wordletter = wordletter[wordarray[letter]];
-		}
+	var result = [[]];
+	for (var i = 1; i < length; i++) {
+		result[i] = words.map(w => w.slice(0, i)).filter((v, i, s) => s.indexOf(v) === i);
 	}
+	result[length] = words;
 	return result;
 }
 
@@ -77,17 +71,14 @@ const reCurseWords = function(depth = 1) {
 	}
 };
 
-const lengths = checkLengths([7, 5]);
+const lengths = checkLengths([7, 3]);
 const wordlists = wordLists(lengths);
-
-console.log(wordlists);
-
 var total = 0;
 const start = process.hrtime();	
 
-//console.log(lengths[0] + " letter words: " + wordlists[0][lengths[0]].length);
-//console.log(lengths[1] + " letter words: " + wordlists[1][lengths[1]].length);
+console.log(lengths[0] + " letter words: " + wordlists[0][lengths[0]].length);
+console.log(lengths[1] + " letter words: " + wordlists[1][lengths[1]].length);
 console.log("");
 
-//reCurseWords();
+reCurseWords();
 console.log("Time:", process.hrtime(start)[0] + 's');
